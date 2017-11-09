@@ -1,4 +1,4 @@
-$topnav-background-color: #222;
+$topnav-background-color: #600000;
 .sidebar{
     border-radius: 0;
     position: fixed;
@@ -32,11 +32,11 @@ $topnav-background-color: #222;
             }
         }
         a:hover {
-            background: darken($topnav-background-color, 5%);
+            background: lighten($topnav-background-color, 10%);
             color: #fff;
         }
         a.router-link-active {
-            background: darken($topnav-background-color, 5%);
+            background: lighten($topnav-background-color, 10%);
             color: #fff;
         }
     }
@@ -68,7 +68,7 @@ $topnav-background-color: #222;
             }
         }
         .panel-title:hover {
-            background: darken($topnav-background-color, 5%);
+            background: lighten($topnav-background-color, 10%);
         }
         .panel-collapse {
             border-radious :0;
@@ -86,7 +86,7 @@ $topnav-background-color: #222;
                     }
                 }
                 .list-group-item:hover {
-                    background : darken($topnav-background-color, 5%);
+                    background : lighten($topnav-background-color, 10%);
                 }
             }
         }
