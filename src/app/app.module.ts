@@ -1,13 +1,17 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Http, HttpModule } from '@angular/http';
+import { Http, HttpModule, RequestOptions } from '@angular/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
+import { RequestTimeLogHttpInterceptor } from './request-time-log-http-interceptor';
+import { GlobalHttpInterceptor } from './global-http-interceptor';
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: Http) {
     // for development
@@ -19,6 +23,7 @@ export function HttpLoaderFactory(http: Http) {
         AppComponent
     ],
     imports: [
+        HttpClientModule,
         BrowserModule,
         BrowserAnimationsModule,
         FormsModule,
@@ -32,7 +37,15 @@ export function HttpLoaderFactory(http: Http) {
             }
         })
     ],
-    providers: [AuthGuard],
+    providers: [{
+        provide: HTTP_INTERCEPTORS,
+        useClass: GlobalHttpInterceptor,
+        multi: true
+    }, {
+        provide: HTTP_INTERCEPTORS,
+        useClass: RequestTimeLogHttpInterceptor,
+        multi: true
+    }, AuthGuard],
     bootstrap: [AppComponent]
 })
 export class AppModule {
